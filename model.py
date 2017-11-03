@@ -10,6 +10,7 @@ from keras.models import Model
 from keras.callbacks import TensorBoard
 import numpy as np
 import os
+from functools import reduce #by lian
 
 SIZE = conf['SIZE']
 

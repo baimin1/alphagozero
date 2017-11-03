@@ -15,8 +15,8 @@ SIZE = conf['SIZE']
 Cpuct = 1
 
 def index2coord(index):
-    y = index / SIZE
-    x = index - SIZE * y
+    y = np.int(index / SIZE)
+    x = np.int(index - SIZE * y)
     return x, y
 
 def legal_moves(board):
@@ -126,12 +126,12 @@ def show_board(board):
     for row in real_board:
         for c in row:
             if c == 1:
-                print u"○",
+                print(u"○"),
             elif c == -1:
-                print u"●",
+                print(u"●"),
             else:
-                print u".",
-        print ""
+                print(u"."),
+        print("")
 
 dxdys = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 def capture_group(x, y, real_board, group=None):
@@ -187,6 +187,7 @@ def make_play(x, y, board):
     player = board[0,0,0,-1]
     board[:,:,:,2:16] = board[:,:,:,0:14]
     if y != SIZE:
+        #print(x,y)
         board[0,y,x,0] = 1  # Careful here about indices
         board = take_stones(x, y, board)
     else:
@@ -281,7 +282,7 @@ def self_play_game(model, mcts_simulations):
     winner, black_points, white_points = get_winner(board)
     player_string = {1: "B", 0: "D", -1: "W"}
     winner_string = "%s+%s" % (player_string[winner], abs(black_points - white_points))
-    print "Game played (%s) : %s" % (winner_string, datetime.datetime.now() - start)
+    print("Game played (%s) : %s" % (winner_string, datetime.datetime.now() - start))
     winner_result = {1: 1, -1: 0, 0: None}
     return boards, winner_result[winner]
 
